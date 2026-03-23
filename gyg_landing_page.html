@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GyG Aire Acondicionado</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:    #0a2540;
+      --accent:  #0077cc;
+      --light:   #e8f4fd;
+      --gray:    #f4f7fb;
+      --text:    #1a2b3c;
+      --muted:   #5a7184;
+      --white:   #ffffff;
+      --radius:  12px;
+    }
+
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #0a2540 0%, #013a6b 55%, #005fa3 100%);
+      color: white;
+      padding: 72px 24px 56px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-logo {
+      display: inline-flex; align-items: center; gap: 14px;
+      margin-bottom: 28px;
+    }
+    .hero-icon {
+      width: 64px; height: 64px; background: rgba(255,255,255,0.15);
+      border-radius: 16px; display: flex; align-items: center; justify-content: center;
+      font-size: 32px;
+    }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; letter-spacing: -0.5px; line-height: 1.1; }
+    .hero h1 span { color: #4db8ff; }
+    .hero p.tagline { font-size: 1.1rem; opacity: 0.85; margin-top: 12px; font-weight: 300; }
+
+    /* contact bar */
+    .contact-bar {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 16px;
+      margin-top: 36px;
+    }
+    .contact-pill {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 10px 20px; border-radius: 50px;
+      font-size: 0.92rem; color: white; text-decoration: none;
+      transition: background .2s;
+    }
+    .contact-pill:hover { background: rgba(255,255,255,0.22); }
+    .contact-pill .icon { font-size: 1.1rem; }
+
+    /* ── SECTION BASE ── */
+    section { padding: 72px 24px; }
+    .container { max-width: 1060px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
+    }
+    h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 800; color: var(--blue); line-height: 1.2; }
+    h2 + p { margin-top: 14px; color: var(--muted); font-size: 1.05rem; max-width: 600px; }
+
+    /* ── SERVICES ── */
+    .services-bg { background: var(--gray); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px; margin-top: 48px;
+    }
+    .service-card {
+      background: white; border-radius: var(--radius); padding: 32px 24px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06); text-align: center;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .service-card:hover { transform: translateY(-6px); box-shadow: 0 8px 32px rgba(0,119,204,0.15); }
+    .service-icon {
+      width: 64px; height: 64px; margin: 0 auto 18px;
+      background: var(--light); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+    }
+    .service-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--blue); margin-bottom: 8px; }
+    .service-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── JOBS ── */
+    .jobs-bg { background: linear-gradient(135deg, #0a2540 0%, #013a6b 100%); }
+    .jobs-bg h2 { color: white; }
+    .jobs-bg .section-label { color: #4db8ff; }
+    .jobs-bg h2 + p { color: rgba(255,255,255,0.7); }
+    .jobs-highlight {
+      display: inline-block; background: #4db8ff; color: #0a2540;
+      font-weight: 800; border-radius: 6px; padding: 2px 10px; margin-left: 4px;
+    }
+    .jobs-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px; margin-top: 48px;
+    }
+    .job-card {
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius); padding: 32px 24px; text-align: center;
+      transition: background .25s;
+    }
+    .job-card:hover { background: rgba(255,255,255,0.14); }
+    .job-icon {
+      font-size: 2.4rem; margin-bottom: 16px; display: block;
+    }
+    .job-card h3 { font-size: 1.1rem; font-weight: 700; color: white; margin-bottom: 8px; }
+    .job-card p { font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.6; }
+    .job-badge {
+      display: inline-block; margin-top: 14px;
+      background: #4db8ff; color: #0a2540;
+      font-size: 0.75rem; font-weight: 700;
+      padding: 4px 12px; border-radius: 50px;
+    }
+
+    /* CTA inside jobs */
+    .jobs-cta {
+      margin-top: 48px; text-align: center;
+    }
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #4db8ff; color: #0a2540;
+      font-weight: 700; font-size: 1rem;
+      padding: 16px 36px; border-radius: 50px;
+      text-decoration: none; transition: background .2s, transform .2s;
+    }
+    .cta-btn:hover { background: #7dcfff; transform: scale(1.03); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #06192e; color: rgba(255,255,255,0.55);
+      text-align: center; padding: 32px 24px; font-size: 0.85rem;
+    }
+    footer a { color: #4db8ff; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── DIVIDER ── */
+    .divider { height: 4px; background: linear-gradient(90deg, var(--accent), #4db8ff, var(--accent)); }
+
+    @media (max-width: 600px) {
+      .contact-pill { font-size: 0.82rem; padding: 9px 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ HERO / HEADER ══════════════ -->
+<header class="hero">
+  <div class="container">
+    <div class="hero-logo">
+      <img src="img/logo.png" alt="Logo GyG Aire Acondicionado" style="width:128px; height:128px; border-radius:50%; object-fit:contain; background:white; padding:4px;">
+      <div style="text-align:left;">
+        <div style="font-size:1rem;opacity:0.7;letter-spacing:2px;text-transform:uppercase;">Empresa especializada en HVAC</div>
+        <h1>GyG Aire Acondicionado</h1>
+      </div>
+    </div>
+
+    <div style="font-size:2.5rem;font-weight:900;line-height:1.1;">Soluciones en clima <br><span>Para tu empresa u hogar</span></div>
+    <p class="tagline">Instalación · Reparación · Mantenimiento · Ventilación · Refrigeración · Calefacción</p>
+
+    <div class="contact-bar">
+      <a href="tel:5559900491" class="contact-pill">
+        <span class="icon">📞</span> 55 5990 0491
+      </a>
+      <a href="mailto:perea@gygaireacondicionado.com.mx" class="contact-pill">
+        <span class="icon">✉️</span> perea@gygaireacondicionado.com.mx
+      </a>
+      <a href="https://gygaireacondicionado.com.mx/" target="_blank" class="contact-pill">
+        <span class="icon">🌐</span> gygaireacondicionado.com.mx
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="divider"></div>
+
+<!-- ══════════════ EMPLEOS ══════════════ -->
+<section class="jobs-bg">
+  <div class="container">
+    <p class="section-label">Únete a nuestro equipo</p>
+    <h2>¿Buscas emplearte?<br><span style="color:#4db8ff;">¡Nosotros te contratamos!</span></h2>
+    <p>Estamos en crecimiento y buscamos personas comprometidas que quieran desarrollarse en el sector de climatización y HVAC.</p>
+
+    <div class="jobs-grid">
+
+      <div class="job-card">
+        <div class="job-icon">
+          <img src="img/tecnico.png" alt="Técnico" style="width: 128px; height:128px; object-fit:contain;">
+        </div>
+        <h3>Técnico con experiencia</h3>
+        <p>Conocimiento en instalación, reparación y mantenimiento de equipos de aire acondicionado, refrigeración o calefacción.</p>
+        <span class="job-badge">Vacante disponible</span>
+      </div>
+
+      <div class="job-card">
+        <div class="job-icon">
+          <img src="img/ayudante.png" alt="Ayudante" style="width: 128px; height:128px; object-fit:contain;">
+        </div>
+        <h3>Ayudante</h3>
+        <p>Apoyo en campo al equipo técnico. Ideal para personas que desean aprender el oficio y crecer dentro de la empresa.</p>
+        <span class="job-badge">Vacante disponible</span>
+      </div>
+
+      <div class="job-card">
+        <div class="job-icon">
+          <img src="img/almacenista.png" alt="Almacenista" style="width: 128px; height:128px; object-fit:contain;">
+        </div>
+        <h3>Almacenista</h3>
+        <p>Gestión, recepción y control de inventario de materiales, refacciones y equipos en almacén.</p>
+        <span class="job-badge">Vacante disponible</span>
+      </div>
+
+    </div>
+
+    <div class="jobs-cta">
+      <p style="color:rgba(255,255,255,0.7);margin-bottom:20px;font-size:1rem;">
+        ¿Te interesa alguno de estos perfiles? Contáctanos y envía tu información.
+      </p>
+      <a href="https://tapni.com/gerardoperea" class="cta-btn">
+        ✉️ &nbsp;Postularme ahora
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════ SERVICIOS ══════════════ -->
+<section class="services-bg">
+  <div class="container">
+    <p class="section-label">¿Qué hacemos?</p>
+    <h2>Nuestros servicios</h2>
+    <p>Ofrecemos soluciones integrales para el control del clima en espacios residenciales, comerciales e industriales.</p>
+
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon">
+          <img src="img/proyectos.png" alt="Proyectos" style="width: 128px; height:128px; object-fit:contain;">
+        </div>
+        <h3>Proyectos</h3>
+        <p>Diseño y planificación de sistemas de climatización a la medida de cada espacio.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <img src="img/instalacion.png" alt="Instalación" style="width: 128px; height:128px; object-fit:contain;">
+        </div>
+        <br>
+        <h3>Instalación</h3>
+        <p>Instalación profesional de equipos de aire acondicionado, calefacción, ventilación y refrigeración.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <img src="img/reparacion.png" alt="Reparación" style="width: 128px; height:128px; object-fit:contain;">
+        </div>
+        <br>
+        <h3>Reparación</h3>
+        <p>Diagnóstico y reparación de fallas en equipos de climatización de cualquier marca o modelo.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <img src="img/mantenimiento.png" alt="Mantenimiento" style="width: 128px; height:128px; object-fit:contain;">
+        </div>
+        <br>
+        <h3>Mantenimiento</h3>
+        <p>Mantenimiento preventivo y correctivo para prolongar la vida útil de tus equipos.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <img src="img/calefaccion.png" alt="Calefacción" style="width: 128px; height:128px; object-fit:contain;">
+        </div>
+        <br>
+        <h3>Calefacción</h3>
+        <p>Sistemas de calefacción eficientes para mantener el confort en temporadas de frío.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <img src="img/refrigeracion.png" alt="Refrigeración" style="width: 128px; height:128px; object-fit:contain;">
+        </div>
+        <br>
+        <h3>Refrigeración</h3>
+        <p>Equipos e instalaciones de refrigeración industrial y comercial.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <img src="img/extraccion.png" alt="Extracción" style="width: 128px; height:128px; object-fit:contain;">
+        </div>
+        <br>
+        <h3>Extracción</h3>
+        <p>Sistemas de extracción de aire para garantizar ambientes sanos y libres de contaminantes.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <img src="img/ventilacion.png" alt="Ventilación" style="width: 128px; height:128px; object-fit:contain;">
+        </div>
+        <br>
+        <h3>Ventilación</h3>
+        <p>Diseño e instalación de sistemas de ventilación mecánica y natural para todo tipo de edificaciones.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <p>
+    <strong style="color:white;">GyG Aire Acondicionado</strong> &nbsp;·&nbsp;
+    📞 <a href="tel:5559900491">55 5990 0491</a> &nbsp;·&nbsp;
+    ✉️ <a href="mailto:perea@gygaireacondicionado.com.mx">perea@gygaireacondicionado.com.mx</a> &nbsp;·&nbsp;
+    🌐 <a href="https://gygaireacondicionado.com.mx/" target="_blank">gygaireacondicionado.com.mx</a>
+  </p>
+  <p style="margin-top:10px;font-size:0.78rem;">© 2026 GyG Aire Acondicionado · Todos los derechos reservados.</p>
+</footer>
+
+</body>
+</html>
